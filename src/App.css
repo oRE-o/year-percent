@@ -1,0 +1,75 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+body {
+  display: flex;
+  justify-content: center; /* 수평 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
+  height: 100vh; /* 전체 뷰포트 높이 사용 */
+  margin: 0; /* 기본 margin 제거 */
+
+  font-family: -apple-system, "Montserrat", "Pretendard", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.3px;
+}
+
+.content-wrapper {
+  width: fit-content;
+  margin: auto auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 수평 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 (선택 사항) */
+}
+
+p {
+  width: fit-content;
+}
+
+.time-block {
+  font-weight: 500;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 수평 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 (선택 사항) */
+  margin-bottom: 2em;
+}
+
+.percent-block {
+  margin-bottom: 10px;
+  font-size: 25px;
+}
+.percent-block-caption {
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+.percent-block-small {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+progress {
+  -webkit-appearance: none; /* Safari 및 Chrome에서 기본 스타일 제거 */
+  appearance: none; /* 기본 스타일 제거 */
+  width: 300px; /* 너비 100% */
+  height: 20px; /* 높이 설정 */
+  border-radius: 10px; /* 모서리 둥글게 */
+  background-color: #ba3c3c; /* 배경색 */
+}
+.progress-bar::-webkit-progress-bar {
+  background-color: #e0e0e0; /* progress 바의 배경색 */
+  border-radius: 10px; /* 모서리 둥글게 */
+}
+
+.progress-bar::-webkit-progress-value {
+  background-color: #76c7c0; /* 진행 중인 부분의 색상 */
+  border-radius: 10px; /* 모서리 둥글게 */
+}
+
+.progress-bar::-moz-progress-bar {
+  background-color: #76c7c0; /* Firefox에서 진행 중인 부분의 색상 */
+  border-radius: 10px; /* 모서리 둥글게 */
+}
