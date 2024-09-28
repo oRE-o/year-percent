@@ -102,6 +102,6 @@ a {
 a:hover {
   background-color: #34dbcda7; /* 호버 시 배경색 */
   color: #161616; /* 호버 시 텍스트 색상 변경 */
-  border: 3px solid #3498db00; /* 둥근 보더 추가 */
+  border: 5px solid #3498db00; /* 둥근 보더 추가 */
   border-radius: 10px; /* 둥근 모서리 */
 }
