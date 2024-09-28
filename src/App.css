@@ -27,13 +27,13 @@ body {
 
 .current-time {
   font-weight: 600;
-  font-size: 35px;
+  font-size: 150%;
   width: fit-content;
   display: flex;
   flex-direction: column;
   justify-content: center; /* 수평 가운데 정렬 */
   align-items: center; /* 수직 가운데 정렬 (선택 사항) */
-  margin-bottom: 30px;
+  margin-bottom: 36px;
 }
 
 p {
