@@ -2,6 +2,24 @@ import React, { useState, useEffect } from "react";
 import "./reset.css";
 import "./App.css";
 
+const getFormattedTime = () => {
+  const now = new Date();
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    timeZone: "Asia/Seoul",
+    hour12: false,
+  };
+
+  const formattedTime = now.toLocaleString(navigator.language, options);
+  // 날짜 포맷을 "2024년 09월 28일" 형태로 변환
+  return formattedTime.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$3년 $1월 $2일");
+};
+
 // 1년, 1달, 1주일, 하루에 대한 퍼센트를 계산하는 함수
 const getTimePercentages = () => {
   const now = new Date();
@@ -85,10 +103,12 @@ const TimePercentage: React.FC = () => {
     dayPercent: false,
     weekendPercent: false,
   });
+  const [formattedTime, setFormattedTime] = useState(getFormattedTime());
 
   useEffect(() => {
     const interval = setInterval(() => {
       setPercentages(getTimePercentages());
+      setFormattedTime(getFormattedTime());
     }, 50); // 50ms마다 퍼센트 값 업데이트
 
     return () => clearInterval(interval);
@@ -141,6 +161,10 @@ const TimePercentage: React.FC = () => {
 
   return (
     <div className="content-wrapper">
+      <div className="current-time">
+        {formattedTime}{" "}
+        {/* "2024년 09월 28일 토요일, 14시 43분 nn초 000" 형식으로 표시됨 */}
+      </div>
       {/* 1년 퍼센트 */}
       <div className="time-block">
         <p
@@ -177,6 +201,7 @@ const TimePercentage: React.FC = () => {
 
       {/* 1주일 퍼센트 */}
       <div className="time-block">
+        <p className="percent-block-caption">(월요일 시작 기준)</p>
         <p
           className="percent-block"
           onMouseEnter={() => handleMouseEnter("weekPercent")}
@@ -185,7 +210,6 @@ const TimePercentage: React.FC = () => {
           이번 주의 {percentages.weekPercent.toFixed(precision.week)}%가
           끝났습니다.
         </p>
-        <p className="percent-block-caption">(월요일 시작 기준)</p>
         <progress
           className="progress-bar"
           value={percentages.weekPercent}

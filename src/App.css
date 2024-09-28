@@ -2,6 +2,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
 body {
+  background-color: #f8fffe;
+  color: #2f3a39;
   display: flex;
   justify-content: center; /* 수평 가운데 정렬 */
   align-items: center; /* 수직 가운데 정렬 */
@@ -23,6 +25,17 @@ body {
   align-items: center; /* 수직 가운데 정렬 (선택 사항) */
 }
 
+.current-time {
+  font-weight: 600;
+  font-size: 35px;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 수평 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 (선택 사항) */
+  margin-bottom: 30px;
+}
+
 p {
   width: fit-content;
 }
@@ -42,7 +55,7 @@ p {
   font-size: 25px;
 }
 .percent-block-caption {
-  margin-bottom: 10px;
+  margin-bottom: 4px;
   font-size: 13px;
 }
 .percent-block-small {
@@ -57,19 +70,38 @@ progress {
   width: 300px; /* 너비 100% */
   height: 20px; /* 높이 설정 */
   border-radius: 10px; /* 모서리 둥글게 */
-  background-color: #ba3c3c; /* 배경색 */
 }
 .progress-bar::-webkit-progress-bar {
-  background-color: #e0e0e0; /* progress 바의 배경색 */
+  background-color: #d7eeec; /* progress 바의 배경색 */
   border-radius: 10px; /* 모서리 둥글게 */
 }
 
 .progress-bar::-webkit-progress-value {
-  background-color: #76c7c0; /* 진행 중인 부분의 색상 */
+  background-color: #34dbcd; /* 진행 중인 부분의 색상 */
   border-radius: 10px; /* 모서리 둥글게 */
 }
 
 .progress-bar::-moz-progress-bar {
-  background-color: #76c7c0; /* Firefox에서 진행 중인 부분의 색상 */
+  background-color: #34dbcd; /* Firefox에서 진행 중인 부분의 색상 */
   border-radius: 10px; /* 모서리 둥글게 */
+}
+
+.nametag {
+  font-weight: 400;
+}
+a {
+  padding: 2px;
+  font-weight: 600;
+  color: #34dbcd;
+  text-decoration: none;
+  border: 5px solid #3498db00;
+  border-radius: 10px;
+  transition: color 0.3s ease, background-color 0.3s ease; /* 이징 효과 추가 */
+}
+
+a:hover {
+  background-color: #34dbcda7; /* 호버 시 배경색 */
+  color: #161616; /* 호버 시 텍스트 색상 변경 */
+  border: 3px solid #3498db00; /* 둥근 보더 추가 */
+  border-radius: 10px; /* 둥근 모서리 */
 }
