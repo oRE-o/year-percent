@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import Confetti from "react-confetti";
+
 import "./reset.css";
 import "./App.css";
 
@@ -104,6 +106,29 @@ const TimePercentage: React.FC = () => {
     weekendPercent: false,
   });
   const [formattedTime, setFormattedTime] = useState(getFormattedTime());
+  const [showConfetti, setShowConfetti] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPercentages(getTimePercentages());
+      setFormattedTime(getFormattedTime());
+
+      // 현재 시간이 2025년 1월 1일 0시 ~ 12시인지 확인
+      const now = new Date();
+      if (
+        now.getFullYear() === 2025 &&
+        now.getMonth() === 0 && // 0 = January
+        now.getDate() === 1 &&
+        now.getHours() < 12
+      ) {
+        setShowConfetti(true);
+      } else {
+        setShowConfetti(false);
+      }
+    }, 50);
+
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -161,6 +186,19 @@ const TimePercentage: React.FC = () => {
 
   return (
     <div className="content-wrapper">
+      {showConfetti && <Confetti />}
+
+      {showConfetti && (
+        <div className="new-year-message">
+          <h1>🎉 Happy New Year! 🎉</h1>
+          <p className="new-year-message-sub">한 해동안 수고하셨습니다.</p>
+          <p className="new-year-message-sub">
+            이 곳에 들어와주신 여러분들, 새해도 행복하길 바랄게요!
+          </p>
+        </div>
+      )}
+      <hr></hr>
+
       <div className="current-time">
         {formattedTime}{" "}
         {/* "2024년 09월 28일 토요일, 14시 43분 nn초 000" 형식으로 표시됨 */}

@@ -105,3 +105,22 @@ a:hover {
   border: 5px solid #3498db00; /* 둥근 보더 추가 */
   border-radius: 10px; /* 둥근 모서리 */
 }
+
+.new-year-message {
+  font-size: 30px;
+  margin-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 수평 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 (선택 사항) */
+}
+
+.new-year-message h1 {
+  margin-bottom: 10px;
+}
+.new-year-message-sub {
+  align-self: center;
+  font-size: 15px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
