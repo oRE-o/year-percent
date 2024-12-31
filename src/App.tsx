@@ -172,7 +172,7 @@ const TimePercentage: React.FC = () => {
           onMouseEnter={() => handleMouseEnter("yearPercent")}
           onMouseLeave={() => handleMouseLeave("yearPercent")}
         >
-          2024년의 {percentages.yearPercent.toFixed(precision.year)}%가
+          올해의 {percentages.yearPercent.toFixed(precision.year)}%가
           끝났습니다.
         </p>
         <progress
