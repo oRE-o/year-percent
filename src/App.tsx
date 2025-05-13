@@ -89,6 +89,65 @@ const getTimePercentages = () => {
   };
 };
 
+
+// 달 위상 이모지 가져오기 (간단히 위상에 따라 보여줌)
+const getMoonEmoji = (now: Date): string => {
+  const synodicMonth = 29.53058867; // 평균 태음월
+  const knownNewMoon = new Date('2025-04-29T00:00:00Z'); // 기준점
+  const daysSinceNewMoon =
+    (now.getTime() - knownNewMoon.getTime()) / (1000 * 60 * 60 * 24);
+  const currentPhase = daysSinceNewMoon % synodicMonth;
+
+  if (currentPhase < 1 || currentPhase > synodicMonth - 1) return '🌑';
+  else if (currentPhase < 7) return '🌒';
+  else if (currentPhase < 13) return '🌓';
+  else if (currentPhase < 15) return '🌔';
+  else if (currentPhase < 16) return '🌕';
+  else if (currentPhase < 21) return '🌖';
+  else if (currentPhase < 27) return '🌗';
+  else return '🌘';
+};
+
+// 다음 보름달까지 퍼센트 계산
+const getMoonProgress = () => {
+  const synodicMonth = 29.53058867;
+  const knownNewMoon = new Date('2025-04-29T00:00:00Z');
+  const now = new Date();
+  const daysSinceNewMoon =
+    (now.getTime() - knownNewMoon.getTime()) / (1000 * 60 * 60 * 24);
+  const phase = daysSinceNewMoon % synodicMonth;
+
+  const daysToNextFullMoon = phase < 15
+    ? 15 - phase
+    : synodicMonth + 15 - phase;
+
+  const percentageToNextFullMoon = (15 - Math.abs(15 - phase)) / 15 * 100;
+
+  return {
+    moonEmoji: getMoonEmoji(now),
+    daysToNextFullMoon,
+    percentageToNextFullMoon,
+  };
+};
+
+// 올해 남은 보름달 개수 계산
+const getRemainingFullMoons = (): number => {
+  const synodicMonth = 29.53058867;
+  const knownFullMoon = new Date('2000-01-21T04:40:00Z');
+  const now = new Date();
+  const endOfYear = new Date(now.getFullYear(), 11, 31, 23, 59, 59);
+
+  let count = 0;
+  let fullMoon = new Date(knownFullMoon);
+
+  while (fullMoon < endOfYear) {
+    if (fullMoon > now) count++;
+    fullMoon = new Date(fullMoon.getTime() + synodicMonth * 86400000);
+  }
+
+  return count;
+};
+
 const TimePercentage: React.FC = () => {
   const [percentages, setPercentages] = useState(getTimePercentages());
   const [precision, setPrecision] = useState({
@@ -107,12 +166,16 @@ const TimePercentage: React.FC = () => {
   });
   const [formattedTime, setFormattedTime] = useState(getFormattedTime());
   const [showConfetti, setShowConfetti] = useState(false);
+  // 새 state
+  const [moonInfo, setMoonInfo] = useState(getMoonProgress());
+  const [remainingFullMoons, setRemainingFullMoons] = useState(getRemainingFullMoons());
 
   useEffect(() => {
     const interval = setInterval(() => {
       setPercentages(getTimePercentages());
       setFormattedTime(getFormattedTime());
-
+      setMoonInfo(getMoonProgress());
+      setRemainingFullMoons(getRemainingFullMoons());
       // 현재 시간이 2025년 1월 1일 0시 ~ 12시인지 확인
       const now = new Date();
       if (
@@ -282,6 +345,23 @@ const TimePercentage: React.FC = () => {
           value={percentages.dayPercent}
           max={100}
         />
+      </div>
+
+      <div className="time-block">
+        <p className="percent-block">
+          오늘의 달 상태는 {moonInfo.moonEmoji} 입니다.
+        </p>
+        <p className="percent-block">
+          보름달의 {moonInfo.percentageToNextFullMoon.toFixed(2)}%가 보이고 있어요!
+        </p>
+        <progress
+          className="progress-bar"
+          value={moonInfo.percentageToNextFullMoon}
+          max={100}
+        />
+        <p className="percent-block-small">
+          그거 아세요? 올해가 끝나기 전까지 보름달은 {remainingFullMoons}번 남았답니다!
+        </p>
       </div>
 
       <div className="nametag">
